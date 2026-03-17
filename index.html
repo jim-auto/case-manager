@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f1117">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+</head>
+<body>
+
+  <!-- Auth -->
+  <div id="auth-screen" class="hidden">
+    <form class="auth-card" id="auth-form">
+      <h1 id="auth-title">パスコードを入力</h1>
+      <input type="password" id="auth-passcode" placeholder="パスコード" autocomplete="off">
+      <div id="auth-confirm-group" class="hidden">
+        <input type="password" id="auth-confirm" placeholder="確認用にもう一度" autocomplete="off">
+      </div>
+      <p class="auth-error" id="auth-error"></p>
+      <button type="submit" id="auth-submit">ログイン</button>
+    </form>
+  </div>
+
+  <!-- App -->
+  <div id="app-screen" class="hidden">
+    <div class="toolbar">
+      <h1>Case Manager</h1>
+      <input type="search" id="search-input" placeholder="検索...">
+      <button class="btn" id="btn-add">+ 追加</button>
+    </div>
+
+    <div class="tag-filter-bar" id="tag-filters"></div>
+
+    <div class="table-wrap">
+      <table id="entry-table">
+        <thead>
+          <tr>
+            <th>名前</th>
+            <th>連絡先ID</th>
+            <th>最終連絡日</th>
+            <th>タグ</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Form Overlay -->
+  <div class="form-overlay hidden" id="form-overlay">
+    <div class="form-card">
+      <h2 id="form-title">連絡先を追加</h2>
+      <form id="entry-form">
+        <div class="field">
+          <label for="f-name">名前 *</label>
+          <input type="text" id="f-name" required>
+        </div>
+        <div class="field">
+          <label for="f-contact">連絡先ID（LINE, メールなど）</label>
+          <input type="text" id="f-contact">
+        </div>
+        <div class="field">
+          <label for="f-date">最終連絡日</label>
+          <input type="date" id="f-date">
+        </div>
+        <div class="field">
+          <label for="f-memo">メモ</label>
+          <textarea id="f-memo" rows="3"></textarea>
+        </div>
+        <div class="field">
+          <label for="f-tags">タグ（カンマ区切り）</label>
+          <input type="text" id="f-tags" placeholder="夜型, アクティブ">
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" id="btn-cancel">キャンセル</button>
+          <button type="submit" class="btn">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="src/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+</html>
